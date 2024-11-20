@@ -25,11 +25,16 @@ http://some.host/somename.png?w=320&h=240
 ```
 returns the image cropped to the desired size
 
+Deleting an image, it requires `TOKEN_REQUIRED` to be `True` and `BEARER_TOKEN` set (e.g. `test` like below):
+```
+curl --location --request DELETE 'http://some.host/somename.png' --header 'Authorization: Bearer test'
+```
+
 ## Running
 imgpush requires docker
 
 ```bash
-docker run -v <PATH TO STORE IMAGES>:/images -p 5000:5000 hauxir/imgpush:latest
+docker run -v <PATH TO STORE IMAGES>:/images -p 5000:5000 giangdinhtt/imgpush:latest
 ```
 
 ### Kubernetes
@@ -118,11 +123,14 @@ livenessProbe:
 | VALID_SIZES  | Any size  | array of integers allowed in the h= and w= parameters, e.g "[100,200,300]". You should set this to protect against being bombarded with requests! |
 | NAME_STRATEGY  | "randomstr"  | `randomstr` for random 5 chars, `uuidv4` for UUIDv4 |
 | NUDE_FILTER_MAX_THRESHOLD  | None  | max unsafe value returned from nudenet library(https://github.com/notAI-tech/NudeNet), range is from 0-0.99. Blocks nudity from being uploaded. |
+| SHOW_UPLOAD_FORM  | True  | Boolean, whether upload form should be displayed  |
+| TOKEN_REQUIRED  | False  | Boolean, if True then upload requests must be authorized  |
+| BEARER_TOKEN  | None  | String, defines token to authorize upload requests when TOKEN_REQUIRED is True  |
 
 Setting configuration variables is all set through env variables that get passed to the docker container.
 ### Example:
 ```
-docker run -e ALLOWED_ORIGINS="['https://a.com', 'https://b.com']" -s -v <PATH TO STORE IMAGES>:/images -p 5000:5000 hauxir/imgpush:latest
+docker run -e ALLOWED_ORIGINS="['https://a.com', 'https://b.com']" -s -v <PATH TO STORE IMAGES>:/images -p 5000:5000 giangdinhtt/imgpush:latest
 ```
 or to quickly deploy it locally, run
 ```
