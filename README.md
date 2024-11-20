@@ -34,7 +34,7 @@ curl --location --request DELETE 'http://some.host/somename.png' --header 'Autho
 imgpush requires docker
 
 ```bash
-docker run -v <PATH TO STORE IMAGES>:/images -p 5000:5000 hauxir/imgpush:latest
+docker run -v <PATH TO STORE IMAGES>:/images -p 5000:5000 giangdinhtt/imgpush:latest
 ```
 
 ### Kubernetes
@@ -130,7 +130,7 @@ livenessProbe:
 Setting configuration variables is all set through env variables that get passed to the docker container.
 ### Example:
 ```
-docker run -e ALLOWED_ORIGINS="['https://a.com', 'https://b.com']" -s -v <PATH TO STORE IMAGES>:/images -p 5000:5000 hauxir/imgpush:latest
+docker run -e ALLOWED_ORIGINS="['https://a.com', 'https://b.com']" -s -v <PATH TO STORE IMAGES>:/images -p 5000:5000 giangdinhtt/imgpush:latest
 ```
 or to quickly deploy it locally, run
 ```
